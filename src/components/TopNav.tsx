@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {
   Popover,
@@ -85,7 +86,7 @@ export default function TopNav() {
   }
 
   return (
-    <header className="bg-card border-b border-border" role="banner">
+    <header className="border-b border-white/10 bg-white/5 backdrop-blur supports-[backdrop-filter]:bg-white/5" role="banner">
       <div className="flex items-center justify-between h-14 px-4">
         {/* Left: Brand */}
         <div className="flex items-center gap-3">
@@ -97,6 +98,13 @@ export default function TopNav() {
             <p className="text-xs text-muted-foreground">Real-time monitoring</p>
           </div>
         </div>
+
+        {/* Center: Nav */}
+        <nav className="hidden md:flex items-center gap-6 text-sm">
+          <Link href="/" className="text-muted-foreground hover:text-foreground transition-colors">Home</Link>
+          <Link href="/detect" className="text-muted-foreground hover:text-foreground transition-colors">Detect</Link>
+          <Link href="/results" className="text-muted-foreground hover:text-foreground transition-colors">Results</Link>
+        </nav>
 
         {/* Right: Desktop utilities */}
         <div className="hidden md:flex items-center gap-4">
@@ -175,6 +183,15 @@ export default function TopNav() {
               <div className="px-2 py-1.5 text-xs text-muted-foreground border-b">
                 Status: {connectionStatus}
               </div>
+              <DropdownMenuItem asChild>
+                <Link href="/">Home</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/detect">Detect</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/results">Results</Link>
+              </DropdownMenuItem>
               <DropdownMenuItem onClick={() => handleUserAction("Profile")}>
                 Profile
               </DropdownMenuItem>

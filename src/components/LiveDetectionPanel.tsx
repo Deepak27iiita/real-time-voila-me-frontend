@@ -24,6 +24,7 @@ import {
   PanelsLeftBottom
 } from 'lucide-react';
 import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
 
 interface DetectionEvent {
   id: string;
@@ -117,6 +118,7 @@ export default function LiveDetectionPanel() {
   const wsRef = useRef<WebSocket | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const animationFrameRef = useRef<number>();
+  const router = useRouter();
 
   // Load preferences from localStorage
   useEffect(() => {
@@ -154,6 +156,19 @@ export default function LiveDetectionPanel() {
   useEffect(() => {
     savePreferences();
   }, [savePreferences]);
+
+  // Sync connection status to TopNav via localStorage
+  useEffect(() => {
+    try {
+      const pretty =
+        connectionState === 'connected'
+          ? 'Connected'
+          : connectionState === 'connecting'
+          ? 'Reconnecting'
+          : 'Disconnected';
+      localStorage.setItem('connectionStatus', pretty);
+    } catch {}
+  }, [connectionState]);
 
   // Get available cameras
   useEffect(() => {
@@ -442,12 +457,32 @@ export default function LiveDetectionPanel() {
   const takeSnapshot = () => {
     const thumbnail = captureFrame();
     if (thumbnail) {
+      // Save latest snapshot for results page
+      try { localStorage.setItem('lastSnapshot', thumbnail); } catch {}
       const link = document.createElement('a');
       link.download = `snapshot-${new Date().toISOString()}.jpg`;
       link.href = thumbnail;
       link.click();
       toast.success('Snapshot saved');
     }
+  };
+
+  // View Results - persist and navigate
+  const viewResults = () => {
+    try {
+      const safeEvents = events.map(e => ({
+        ...e,
+        timestamp: e.timestamp instanceof Date ? e.timestamp.toISOString() : e.timestamp,
+      }));
+      localStorage.setItem('detection-events', JSON.stringify(safeEvents));
+      const src = videoRef.current?.srcObject ? '' : (videoRef.current?.currentSrc || videoRef.current?.src || '');
+      if (src) localStorage.setItem('lastVideoSrc', src); else localStorage.removeItem('lastVideoSrc');
+      const shot = captureFrame();
+      if (shot) localStorage.setItem('lastSnapshot', shot);
+    } catch (e) {
+      console.error('Failed to persist results:', e);
+    }
+    router.push('/results');
   };
 
   // Disconnect
@@ -579,7 +614,7 @@ export default function LiveDetectionPanel() {
         {/* Primary Area - Video and Controls */}
         <div className="lg:col-span-2 space-y-4">
           {/* Input Mode Selection */}
-          <Card>
+          <Card className="bg-white/10 border-white/15 backdrop-blur-md shadow-xl">
             <CardContent className="p-4">
               <Tabs value={inputMode} onValueChange={(value) => setInputMode(value as InputMode)}>
                 <TabsList className="grid w-full grid-cols-3">
@@ -672,7 +707,7 @@ export default function LiveDetectionPanel() {
           </Card>
 
           {/* Video Display */}
-          <Card className="relative">
+          <Card className="relative bg-white/10 border-white/15 backdrop-blur-md shadow-2xl">
             <CardContent className="p-0">
               <div 
                 className={`relative bg-black rounded-lg overflow-hidden ${dragOver ? 'ring-2 ring-primary' : ''}`}
@@ -765,7 +800,7 @@ export default function LiveDetectionPanel() {
           </Card>
 
           {/* Control Strip */}
-          <Card>
+          <Card className="bg-white/10 border-white/15 backdrop-blur-md shadow-xl">
             <CardContent className="p-4">
               <div className="flex items-center gap-4">
                 <div className="flex gap-2">
@@ -798,6 +833,9 @@ export default function LiveDetectionPanel() {
                   >
                     Disconnect
                   </Button>
+                  <Button onClick={viewResults} size="sm" variant="secondary">
+                    View Results
+                  </Button>
                 </div>
                 
                 <Separator orientation="vertical" className="h-6" />
@@ -825,7 +863,7 @@ export default function LiveDetectionPanel() {
         {/* Secondary Area - Detection Summary, Timeline, Controls */}
         <div className="space-y-4">
           {/* Detection Summary */}
-          <Card>
+          <Card className="bg-white/10 border-white/15 backdrop-blur-md shadow-xl">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <PanelsLeftBottom className="w-5 h-5" />
@@ -863,7 +901,7 @@ export default function LiveDetectionPanel() {
           </Card>
 
           {/* Model & Threshold Controls */}
-          <Card>
+          <Card className="bg-white/10 border-white/15 backdrop-blur-md shadow-xl">
             <CardHeader>
               <CardTitle>Detection Settings</CardTitle>
             </CardHeader>
@@ -924,7 +962,7 @@ export default function LiveDetectionPanel() {
           </Card>
 
           {/* Event Timeline */}
-          <Card>
+          <Card className="bg-white/10 border-white/15 backdrop-blur-md shadow-xl">
             <CardHeader>
               <CardTitle>Event Timeline</CardTitle>
               <div className="flex gap-2">
@@ -1020,7 +1058,7 @@ export default function LiveDetectionPanel() {
           </Card>
 
           {/* Export & Advanced Settings */}
-          <Card>
+          <Card className="bg-white/10 border-white/15 backdrop-blur-md shadow-xl">
             <CardContent className="p-4 space-y-4">
               <div className="flex gap-2">
                 <Button onClick={exportCSV} variant="outline" className="flex-1">
