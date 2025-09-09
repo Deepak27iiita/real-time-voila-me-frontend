@@ -51,12 +51,12 @@ export const ResultsView: React.FC = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+    <div className="min-h-screen bg-background dark:bg-gradient-to-br dark:from-[#0a0a12] dark:via-[#0b0b15] dark:to-[#121229]">
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="container mx-auto px-6 py-8 text-white"
+        className="container mx-auto px-6 py-8 text-foreground"
       >
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <motion.div
@@ -64,9 +64,9 @@ export const ResultsView: React.FC = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <Card className="bg-white/10 border-white/15 backdrop-blur-md shadow-2xl lg:col-span-2 hover:bg-white/15 transition-all duration-300">
+            <Card className="bg-card border-border dark:bg-white/10 dark:border-white/15 backdrop-blur-md shadow-2xl lg:col-span-2 dark:hover:bg-white/15 transition-all duration-300">
               <CardHeader>
-                <CardTitle className="text-xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300">
+                <CardTitle className="text-xl font-semibold text-foreground dark:bg-clip-text dark:text-transparent dark:bg-gradient-to-r dark:from-white dark:to-gray-300">
                   Results Preview
                 </CardTitle>
               </CardHeader>
@@ -88,7 +88,7 @@ export const ResultsView: React.FC = () => {
                       initial={{ opacity: 0, scale: 0.95 }}
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.95 }}
-                      className="w-full aspect-video bg-black/50 rounded-lg flex items-center justify-center overflow-hidden shadow-lg"
+                      className="w-full aspect-video bg-muted rounded-lg flex items-center justify-center overflow-hidden shadow-lg"
                     >
                       <img src={snapshot} alt="Last snapshot" className="w-full h-full object-contain" />
                     </motion.div>
@@ -98,7 +98,7 @@ export const ResultsView: React.FC = () => {
                       initial={{ opacity: 0, scale: 0.95 }}
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.95 }}
-                      className="w-full aspect-video bg-gradient-to-br from-gray-800/40 to-gray-700/40 rounded-lg flex items-center justify-center text-sm text-gray-300 border border-white/10 backdrop-blur-sm"
+                      className="w-full aspect-video bg-muted rounded-lg flex items-center justify-center text-sm text-muted-foreground border border-border"
                     >
                       No video source saved. Return to Detect and start a camera, stream, or upload.
                     </motion.div>
@@ -113,13 +113,13 @@ export const ResultsView: React.FC = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            <Card className="bg-white/10 border-white/15 backdrop-blur-md shadow-2xl hover:bg-white/15 transition-all duration-300">
+            <Card className="bg-card border-border dark:bg-white/10 dark:border-white/15 backdrop-blur-md shadow-2xl dark:hover:bg-white/15 transition-all duration-300">
               <CardHeader>
-                <CardTitle className="text-xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300">
+                <CardTitle className="text-xl font-semibold text-foreground dark:bg-clip-text dark:text-transparent dark:bg-gradient-to-r dark:from-white dark:to-gray-300">
                   Summary
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4 text-gray-200">
+              <CardContent className="space-y-4">
                 <motion.div 
                   className="grid grid-cols-2 gap-4"
                   initial={{ opacity: 0 }}
@@ -127,9 +127,9 @@ export const ResultsView: React.FC = () => {
                   transition={{ delay: 0.5 }}
                 >
                   <div className="group">
-                    <div className="text-gray-400 text-sm">Total Events</div>
+                    <div className="text-muted-foreground text-sm">Total Events</div>
                     <motion.div 
-                      className="text-2xl font-bold text-white group-hover:text-brand transition-colors duration-200"
+                      className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors duration-200"
                       whileHover={{ scale: 1.05 }}
                       transition={{ type: "spring", stiffness: 400, damping: 10 }}
                     >
@@ -137,9 +137,9 @@ export const ResultsView: React.FC = () => {
                     </motion.div>
                   </div>
                   <div className="group">
-                    <div className="text-gray-400 text-sm">High Confidence (≥90%)</div>
+                    <div className="text-muted-foreground text-sm">High Confidence (≥90%)</div>
                     <motion.div 
-                      className="text-2xl font-bold text-green-400 group-hover:text-green-300 transition-colors duration-200"
+                      className="text-2xl font-bold text-green-600 dark:text-green-400 group-hover:text-green-500 dark:group-hover:text-green-300 transition-colors duration-200"
                       whileHover={{ scale: 1.05 }}
                       transition={{ type: "spring", stiffness: 400, damping: 10 }}
                     >
@@ -147,9 +147,9 @@ export const ResultsView: React.FC = () => {
                     </motion.div>
                   </div>
                   <div className="group">
-                    <div className="text-gray-400 text-sm">Avg Confidence</div>
+                    <div className="text-muted-foreground text-sm">Avg Confidence</div>
                     <motion.div 
-                      className="text-2xl font-bold text-blue-400 group-hover:text-blue-300 transition-colors duration-200"
+                      className="text-2xl font-bold text-blue-600 dark:text-blue-400 group-hover:text-blue-500 dark:group-hover:text-blue-300 transition-colors duration-200"
                       whileHover={{ scale: 1.05 }}
                       transition={{ type: "spring", stiffness: 400, damping: 10 }}
                     >
@@ -157,31 +157,27 @@ export const ResultsView: React.FC = () => {
                     </motion.div>
                   </div>
                   <div className="group">
-                    <div className="text-gray-400 text-sm">Model</div>
-                    <div className="text-lg font-semibold text-gray-300">{events[0]?.model || "-"}</div>
+                    <div className="text-muted-foreground text-sm">Model</div>
+                    <div className="text-lg font-semibold text-foreground/80">{events[0]?.model || "-"}</div>
                   </div>
                 </motion.div>
-                <Separator className="bg-white/10" />
+                <Separator className="bg-border" />
                 <motion.div 
-                  className="flex gap-2"
+                  className="flex flex-col sm:flex-row gap-2"
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.7 }}
                 >
                   <Button 
                     variant="outline" 
-                    className="border-white/30 text-gray-200 hover:bg-white/10 hover:text-white transition-all duration-200"
+                    className="border-border text-foreground hover:bg-muted hover:text-foreground"
                     onClick={() => router.push("/detect")}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
                   >
                     Back to Detect
                   </Button>
                   <Button 
-                    className="bg-brand/80 hover:bg-brand text-white border border-brand/50 transition-all duration-200"
+                    className="bg-primary hover:bg-primary/90 text-primary-foreground border border-primary/30"
                     onClick={() => window.print()}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
                   >
                     Print Report
                   </Button>
@@ -197,9 +193,9 @@ export const ResultsView: React.FC = () => {
           transition={{ duration: 0.5, delay: 0.4 }}
           className="mt-8"
         >
-          <Card className="bg-white/10 border-white/15 backdrop-blur-md shadow-2xl hover:bg-white/15 transition-all duration-300">
+          <Card className="bg-card border-border dark:bg-white/10 dark:border-white/15 backdrop-blur-md shadow-2xl dark:hover:bg-white/15 transition-all duration-300">
             <CardHeader>
-              <CardTitle className="text-xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300">
+              <CardTitle className="text-xl font-semibold text-foreground dark:bg-clip-text dark:text-transparent dark:bg-gradient-to-r dark:from-white dark:to-gray-300">
                 Detected Events
               </CardTitle>
             </CardHeader>
@@ -208,7 +204,7 @@ export const ResultsView: React.FC = () => {
                 <motion.div 
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="text-gray-400 text-sm py-10 text-center"
+                  className="text-muted-foreground text-sm py-10 text-center"
                 >
                   No events detected yet.
                 </motion.div>
@@ -227,14 +223,14 @@ export const ResultsView: React.FC = () => {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.9 }}
                         transition={{ duration: 0.3, delay: index * 0.1 }}
-                        className="p-4 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300 group"
+                        className="p-4 rounded-lg bg-muted/60 dark:bg-white/5 border border-border dark:border-white/10 hover:dark:bg-white/10 hover:dark:border-white/20 transition-all duration-300 group"
                         whileHover={{ y: -2 }}
                       >
-                        <div className="w-full h-24 bg-gray-800/40 rounded-lg mb-3 overflow-hidden group-hover:scale-105 transition-transform duration-300">
+                        <div className="w-full h-24 bg-muted rounded-lg mb-3 overflow-hidden group-hover:scale-105 transition-transform duration-300">
                           {event.thumbnail ? (
                             <img src={event.thumbnail} alt="thumb" className="w-full h-full object-cover" />
                           ) : (
-                            <div className="w-full h-full flex items-center justify-center text-xs text-gray-400">No preview</div>
+                            <div className="w-full h-full flex items-center justify-center text-xs text-muted-foreground">No preview</div>
                           )}
                         </div>
                         <div className="flex items-center gap-2 mb-2">
@@ -244,13 +240,13 @@ export const ResultsView: React.FC = () => {
                           >
                             {event.confidence.toFixed(1)}%
                           </Badge>
-                          <span className="text-xs text-gray-400 font-medium">{event.model}</span>
+                          <span className="text-xs text-muted-foreground font-medium">{event.model}</span>
                         </div>
-                        <div className="text-sm font-medium text-gray-300 mb-2">
+                        <div className="text-sm font-medium text-foreground/80 mb-2">
                           {new Date(event.timestamp).toLocaleString()}
                         </div>
                         {event.note && (
-                          <div className="text-xs text-gray-400 mt-1 bg-white/5 rounded px-2 py-1 border-l-2 border-brand/50">
+                          <div className="text-xs text-muted-foreground mt-1 bg-muted rounded px-2 py-1 border-l-2 border-primary/50">
                             Note: {event.note}
                           </div>
                         )}

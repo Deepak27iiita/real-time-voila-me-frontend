@@ -3,7 +3,7 @@
 @import "tw-animate-css";
 @custom-variant dark (&:is(.dark *));
 @theme {
---color-background: #f3f4f6;
+--color-background: #ffffff;
 --color-foreground: #111827;
 --color-card: #ffffff;
 --color-card-foreground: #111827;
@@ -13,7 +13,7 @@
 --color-primary-foreground: #ffffff;
 --color-secondary: #f5f6f7;
 --color-secondary-foreground: #111827;
---color-muted: #f2f3f5;
+--color-muted: #f6f7fb;
 --color-muted-foreground: #6b7280;
 --color-accent: #ede9fe;
 --color-accent-foreground: #4c44c9;
@@ -137,6 +137,33 @@ p { color: var(--foreground); font-weight: 500; }
 small, .text-muted-foreground { color: var(--color-muted-foreground); font-weight: 500; }
 a { color: var(--color-primary); text-decoration: none; }
 .font-sans { font-family: var(--font-sans); }
+}
+
+/* Dark mode variable overrides for glossy near-black + purple accents */
+@layer base {
+.dark {
+  --color-background: #0a0a12;
+  --color-foreground: #e5e7eb;
+  --color-card: #0e0e17;
+  --color-card-foreground: #e5e7eb;
+  --color-popover: #0e0e17;
+  --color-popover-foreground: #e5e7eb;
+  --color-secondary: #0f1020;
+  --color-secondary-foreground: #e5e7eb;
+  --color-muted: #111229;
+  --color-muted-foreground: #9aa3b2;
+  --color-accent: #121229;
+  --color-accent-foreground: #c7b8ff;
+  --color-border: #1f2337;
+  --color-input: #1f2337;
+  --color-ring: #7c6bf9;
+  --color-sidebar: #0b0b12;
+  --color-sidebar-foreground: #cbd5e1;
+  --color-sidebar-accent: #0f1020;
+  --color-sidebar-accent-foreground: #e5e7eb;
+  --color-sidebar-border: #1f2337;
+  --color-sidebar-ring: #7c6bf9;
+}
 }
 
 /* Hide Next.js error overlay portal */

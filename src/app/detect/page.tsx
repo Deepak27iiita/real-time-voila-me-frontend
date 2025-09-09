@@ -3,7 +3,7 @@ import LiveDetectionPanel from "@/components/LiveDetectionPanel";
 
 export default function DetectPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0f1020] via-[#12142a] to-[#1a1f3b] text-white">
+    <div className="min-h-screen bg-white dark:bg-gradient-to-br dark:from-[#0a0a12] dark:via-[#0b0b15] dark:to-[#121229] text-foreground">
       <TopNav />
       <div className="container mx-auto px-6 py-8">
         <LiveDetectionPanel />

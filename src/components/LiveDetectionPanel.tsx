@@ -599,7 +599,7 @@ export default function LiveDetectionPanel() {
             }}
             onClick={() => setSelectedBox(box)}
           >
-            <div className="absolute -top-8 left-0 bg-red-500 text-white px-2 py-1 text-xs rounded">
+            <div className="absolute -top-8 left-0 bg-destructive text-destructive-foreground px-2 py-1 text-xs rounded">
               {box.label} {box.confidence.toFixed(1)}%
             </div>
           </div>
@@ -614,7 +614,7 @@ export default function LiveDetectionPanel() {
         {/* Primary Area - Video and Controls */}
         <div className="lg:col-span-2 space-y-4">
           {/* Input Mode Selection */}
-          <Card className="bg-white/10 border-white/15 backdrop-blur-md shadow-xl">
+          <Card className="bg-card border-border dark:bg-white/10 dark:border-white/15 backdrop-blur-md shadow-xl">
             <CardContent className="p-4">
               <Tabs value={inputMode} onValueChange={(value) => setInputMode(value as InputMode)}>
                 <TabsList className="grid w-full grid-cols-3">
@@ -707,7 +707,7 @@ export default function LiveDetectionPanel() {
           </Card>
 
           {/* Video Display */}
-          <Card className="relative bg-white/10 border-white/15 backdrop-blur-md shadow-2xl">
+          <Card className="relative bg-card border-border dark:bg-white/10 dark:border-white/15 backdrop-blur-md shadow-2xl">
             <CardContent className="p-0">
               <div 
                 className={`relative bg-black rounded-lg overflow-hidden ${dragOver ? 'ring-2 ring-primary' : ''}`}
@@ -737,8 +737,8 @@ export default function LiveDetectionPanel() {
                 
                 {connectionState === 'connecting' && (
                   <div className="aspect-video flex items-center justify-center bg-black">
-                    <div className="text-center text-white">
-                      <div className="animate-spin w-8 h-8 border-2 border-white border-t-transparent rounded-full mx-auto mb-4"></div>
+                    <div className="text-center text-foreground">
+                      <div className="animate-spin w-8 h-8 border-2 border-foreground border-t-transparent rounded-full mx-auto mb-4"></div>
                       <p>Connecting...</p>
                     </div>
                   </div>
@@ -774,7 +774,7 @@ export default function LiveDetectionPanel() {
                     
                     {/* Live Metrics HUD */}
                     {detectionState === 'detecting' && (
-                      <div className="absolute top-4 left-4 bg-black/70 text-white p-3 rounded-lg text-xs space-y-1">
+                      <div className="absolute top-4 left-4 bg-background/80 dark:bg-black/70 text-foreground p-3 rounded-lg text-xs space-y-1">
                         <div>FPS: {liveMetrics.fps.toFixed(1)}</div>
                         <div>Latency: {liveMetrics.latency.toFixed(0)}ms</div>
                         <div>Last: {liveMetrics.lastConfidence.toFixed(1)}%</div>
@@ -800,7 +800,7 @@ export default function LiveDetectionPanel() {
           </Card>
 
           {/* Control Strip */}
-          <Card className="bg-white/10 border-white/15 backdrop-blur-md shadow-xl">
+          <Card className="bg-card border-border dark:bg-white/10 dark:border-white/15 backdrop-blur-md shadow-xl">
             <CardContent className="p-4">
               <div className="flex items-center gap-4">
                 <div className="flex gap-2">
@@ -863,7 +863,7 @@ export default function LiveDetectionPanel() {
         {/* Secondary Area - Detection Summary, Timeline, Controls */}
         <div className="space-y-4">
           {/* Detection Summary */}
-          <Card className="bg-white/10 border-white/15 backdrop-blur-md shadow-xl">
+          <Card className="bg-card border-border dark:bg-white/10 dark:border-white/15 backdrop-blur-md shadow-xl">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <PanelsLeftBottom className="w-5 h-5" />
@@ -901,7 +901,7 @@ export default function LiveDetectionPanel() {
           </Card>
 
           {/* Model & Threshold Controls */}
-          <Card className="bg-white/10 border-white/15 backdrop-blur-md shadow-xl">
+          <Card className="bg-card border-border dark:bg-white/10 dark:border-white/15 backdrop-blur-md shadow-xl">
             <CardHeader>
               <CardTitle>Detection Settings</CardTitle>
             </CardHeader>
@@ -962,7 +962,7 @@ export default function LiveDetectionPanel() {
           </Card>
 
           {/* Event Timeline */}
-          <Card className="bg-white/10 border-white/15 backdrop-blur-md shadow-xl">
+          <Card className="bg-card border-border dark:bg-white/10 dark:border-white/15 backdrop-blur-md shadow-xl">
             <CardHeader>
               <CardTitle>Event Timeline</CardTitle>
               <div className="flex gap-2">
@@ -1012,7 +1012,7 @@ export default function LiveDetectionPanel() {
                 <div className="space-y-3 max-h-96 overflow-y-auto">
                   {filteredEvents.map(event => (
                     <div key={event.id} className="flex gap-3 p-3 bg-muted rounded-lg">
-                      <div className="w-16 h-10 bg-gray-200 rounded overflow-hidden flex-shrink-0">
+                      <div className="w-16 h-10 bg-muted rounded overflow-hidden flex-shrink-0">
                         {event.thumbnail && (
                           <img 
                             src={event.thumbnail} 
@@ -1058,7 +1058,7 @@ export default function LiveDetectionPanel() {
           </Card>
 
           {/* Export & Advanced Settings */}
-          <Card className="bg-white/10 border-white/15 backdrop-blur-md shadow-xl">
+          <Card className="bg-card border-border dark:bg-white/10 dark:border-white/15 backdrop-blur-md shadow-xl">
             <CardContent className="p-4 space-y-4">
               <div className="flex gap-2">
                 <Button onClick={exportCSV} variant="outline" className="flex-1">
